@@ -11,7 +11,7 @@ import java.util.UUID;
 @Entity
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-public class MenuCategory {
+public class Menu {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private String id = UUID.randomUUID().toString();
@@ -21,4 +21,10 @@ public class MenuCategory {
 
     @Column(nullable = false)
     private String description;
+
+    @Column(nullable = false)
+    private String image;
+
+    @Column(nullable = false)
+    private int basePrice;
 }
