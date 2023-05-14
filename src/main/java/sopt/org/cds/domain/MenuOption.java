@@ -7,25 +7,18 @@ import lombok.NoArgsConstructor;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
-import java.util.UUID;
 
 
 @Entity
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-public class Menu {
+public class MenuOption {
     @Id
-    private String id = UUID.randomUUID().toString();
+    private String id;
 
     @Column(nullable = false)
     private String name;
 
     @Column(nullable = false)
-    private String description;
-
-    @Column(nullable = false)
-    private String image;
-
-    @Column(nullable = false)
-    private int basePrice;
+    private int price;
 }
