@@ -8,7 +8,7 @@ import javax.persistence.*;
 import java.util.UUID;
 
 
-// TODO: map with and cart item
+// TODO: map with user and cart item
 @Entity
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
