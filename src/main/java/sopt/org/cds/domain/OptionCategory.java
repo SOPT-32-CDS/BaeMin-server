@@ -11,11 +11,17 @@ import java.util.UUID;
 @Entity
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-public class MenuCategory {
+public class OptionCategory {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private String id = UUID.randomUUID().toString();
 
     @Column(nullable = false)
     private String name;
+
+    @Column(nullable = false)
+    private String description;
+
+    @Column(nullable = false)
+    private boolean isMandatory;
 }
