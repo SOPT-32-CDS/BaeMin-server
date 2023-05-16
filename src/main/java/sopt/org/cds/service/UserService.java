@@ -18,6 +18,7 @@ public class UserService {
 
     @Transactional
     public UserResponseDto authentication(String token) {
+
         String[] split = token.split(" ");
         String credential = split[1];
 
