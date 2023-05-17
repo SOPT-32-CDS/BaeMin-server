@@ -2,6 +2,9 @@ package sopt.org.cds.service;
 
 
 import lombok.RequiredArgsConstructor;
+import org.json.simple.JSONObject;
+import org.json.simple.parser.JSONParser;
+import org.json.simple.parser.ParseException;
 import org.springframework.stereotype.Service;
 import org.springframework.util.Base64Utils;
 import sopt.org.cds.controller.user.dto.UserResponseDto;
@@ -21,19 +24,23 @@ public class UserService {
 
         String[] split = token.split(" ");
         String credential = split[1];
+        String payload = credential.split("\\.")[1];
+        String decode = new String(Base64Utils.decodeFromString(payload));
 
-        String decoded = new String(Base64Utils.decodeFromString(credential));
+        JSONParser jsonParser = new JSONParser();
+        try {
+            JSONObject jsonObject = (JSONObject) jsonParser.parse(decode);
+            Long userId = (Long) jsonObject.get("id");
+            Optional<User> user = userRepository.findById(userId);
 
-        String[] userIdAndAddress = decoded.split(":");
-        Long userId = Long.parseLong(userIdAndAddress[0]);
-
-        Optional<User> user = userRepository.findById(userId);
-
-        if (user.isPresent()) {
-            return UserResponseDto.of(user.get().getAddress());
-        } else {
+            if (user.isPresent()) {
+                return UserResponseDto.of(user.get().getAddress());
+            } else {
+                throw new RuntimeException();
+            }
+        } catch (ParseException e) {
             throw new RuntimeException();
         }
-
+        
     }
 }
