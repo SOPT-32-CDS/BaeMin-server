@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 import sopt.org.cds.common.dto.ApiResponseDto;
+import sopt.org.cds.controller.store.dto.StoreDetailResponseDto;
 import sopt.org.cds.controller.store.dto.StoreResponseDto;
 import sopt.org.cds.exception.SuccessStatus;
 import sopt.org.cds.service.StoreService;
@@ -28,8 +29,8 @@ public class StoreController {
 
     @GetMapping("/store/{id}")
     @ResponseStatus(HttpStatus.OK)
-    public Long getStoreDetail(@PathVariable final Long id) {
-//        StoreDetailResponseDto data = storeService.getStoreDetail();
-        return id;
+    public ApiResponseDto<StoreDetailResponseDto> getStoreDetail(@PathVariable final Long id) {
+        StoreDetailResponseDto data = storeService.getStoreDetail(id);
+        return ApiResponseDto.success(SuccessStatus.GET_STORE_LIST_SUCCESS, data);
     }
 }
