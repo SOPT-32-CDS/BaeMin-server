@@ -14,9 +14,9 @@ import sopt.org.cds.domain.Store;
 import sopt.org.cds.infrastructure.StoreRepository;
 
 import javax.transaction.Transactional;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -26,21 +26,20 @@ public class StoreService {
     @Transactional
     public List<StoreResponseDto> getStoreList() {
         List<Store> storeList = storeRepository.findAll();
-        List<StoreResponseDto> response = new ArrayList<>();
-        storeList.forEach(store -> {
-            StoreResponseDto storeResponseDto = StoreResponseDto.builder()
-                    .id(store.getId())
-                    .name(store.getName())
-                    .image(store.getImage())
-                    .rate(store.getRate())
-                    .deliveryFee(store.getDeliveryFee())
-                    .maxDeliveryTime(store.getMaxDeliveryTime())
-                    .minDeliveryTime(store.getMinOrderAmount())
-                    .minOrderAmount(store.getMinOrderAmount())
-                    .hasCoupon(store.isHasCoupon())
-                    .build();
-            response.add(storeResponseDto);
-        });
+        List<StoreResponseDto> response;
+        response = storeList.stream()
+                .map(store -> StoreResponseDto.builder()
+                        .id(store.getId())
+                        .name(store.getName())
+                        .image(store.getImage())
+                        .rate(store.getRate())
+                        .deliveryFee(store.getDeliveryFee())
+                        .maxDeliveryTime(store.getMaxDeliveryTime())
+                        .minDeliveryTime(store.getMinOrderAmount())
+                        .minOrderAmount(store.getMinOrderAmount())
+                        .hasCoupon(store.isHasCoupon())
+                        .build())
+                .collect(Collectors.toList());
 
         return response;
     }
@@ -74,29 +73,26 @@ public class StoreService {
     }
 
     private List<MenuCategoryResponseDto> getMenuCategoryResponseList(List<MenuCategory> menuCategoryList) {
-        List<MenuCategoryResponseDto> menuCategoryResponseList = new ArrayList<>();
-        menuCategoryList.forEach(menuCategory -> {
-            menuCategoryResponseList.add(MenuCategoryResponseDto.builder()
-                    .id(menuCategory.getId())
-                    .name(menuCategory.getName())
-                    .menus(getMenuResponseList(menuCategory.getMenuList()))
-                    .build());
-        });
-        return menuCategoryResponseList;
+        return menuCategoryList.stream()
+                .map(menuCategory ->
+                        MenuCategoryResponseDto.builder()
+                                .id(menuCategory.getId())
+                                .name(menuCategory.getName())
+                                .menus(getMenuResponseList(menuCategory.getMenuList()))
+                                .build())
+                .collect(Collectors.toList());
     }
 
     private List<MenuResponseDto> getMenuResponseList(List<Menu> menuList) {
-        List<MenuResponseDto> menuResponseList = new ArrayList<>();
-        menuList.forEach(menu -> {
-            menuResponseList.add(MenuResponseDto.builder()
-                    .id(menu.getId())
-                    .name(menu.getName())
-                    .description(menu.getDescription())
-                    .image(menu.getImage())
-                    .basePrice(menu.getBasePrice())
-                    .build());
-        });
-        return menuResponseList;
+        return menuList.stream()
+                .map(menu -> MenuResponseDto.builder()
+                        .id(menu.getId())
+                        .name(menu.getName())
+                        .description(menu.getDescription())
+                        .image(menu.getImage())
+                        .basePrice(menu.getBasePrice())
+                        .build())
+                .collect(Collectors.toList());
     }
 
 }
