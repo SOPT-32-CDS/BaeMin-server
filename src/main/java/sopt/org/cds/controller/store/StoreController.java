@@ -3,6 +3,7 @@ package sopt.org.cds.controller.store;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 import sopt.org.cds.common.dto.ApiResponseDto;
@@ -23,5 +24,12 @@ public class StoreController {
         List<StoreResponseDto> data = storeService.getStoreList();
         return ApiResponseDto.success(SuccessStatus.GET_STORE_LIST_SUCCESS, data);
 
+    }
+
+    @GetMapping("/store/{id}")
+    @ResponseStatus(HttpStatus.OK)
+    public Long getStoreDetail(@PathVariable final Long id) {
+//        StoreDetailResponseDto data = storeService.getStoreDetail();
+        return id;
     }
 }
