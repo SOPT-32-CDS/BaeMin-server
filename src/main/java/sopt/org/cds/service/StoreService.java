@@ -9,6 +9,7 @@ import sopt.org.cds.controller.menu.dto.MenuResponseDto;
 import sopt.org.cds.controller.store.dto.StoreDetailResponseDto;
 import sopt.org.cds.controller.store.dto.StoreResponseDto;
 import sopt.org.cds.domain.Menu;
+import sopt.org.cds.domain.MenuCategory;
 import sopt.org.cds.domain.Store;
 import sopt.org.cds.infrastructure.StoreRepository;
 
@@ -47,20 +48,9 @@ public class StoreService {
     @Transactional
     public StoreDetailResponseDto getStoreDetail(Long id) {
         Optional<Store> store = storeRepository.findById(id);
-        StoreDetailResponseDto response = new StoreDetailResponseDto();
+        StoreDetailResponseDto response;
         if (store.isPresent()) {
             Store storeData = store.get();
-
-            List<MenuCategoryResponseDto> menuCategoryList = new ArrayList<>();
-            storeData.getMenuCategoryList()
-                    .forEach(menuCategory -> {
-                        menuCategoryList.add(MenuCategoryResponseDto.builder()
-                                .id(menuCategory.getId())
-                                .name(menuCategory.getName())
-                                .menus(getMenuResponseList(menuCategory.getMenuList()))
-                                .build());
-                    });
-
             response = StoreDetailResponseDto.builder()
                     .id(storeData.getId())
                     .id(storeData.getId())
@@ -72,7 +62,7 @@ public class StoreService {
                     .minDeliveryTime(storeData.getMinOrderAmount())
                     .minOrderAmount(storeData.getMinOrderAmount())
                     .hasCoupon(storeData.isHasCoupon())
-                    .menuCategoryList(menuCategoryList)
+                    .menuCategories(getMenuCategoryResponseList(storeData.getMenuCategoryList()))
                     .build();
 
         } else {
@@ -81,6 +71,18 @@ public class StoreService {
 
         return response;
 
+    }
+
+    private List<MenuCategoryResponseDto> getMenuCategoryResponseList(List<MenuCategory> menuCategoryList) {
+        List<MenuCategoryResponseDto> menuCategoryResponseList = new ArrayList<>();
+        menuCategoryList.forEach(menuCategory -> {
+            menuCategoryResponseList.add(MenuCategoryResponseDto.builder()
+                    .id(menuCategory.getId())
+                    .name(menuCategory.getName())
+                    .menus(getMenuResponseList(menuCategory.getMenuList()))
+                    .build());
+        });
+        return menuCategoryResponseList;
     }
 
     private List<MenuResponseDto> getMenuResponseList(List<Menu> menuList) {
