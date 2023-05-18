@@ -5,14 +5,14 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.experimental.SuperBuilder;
 
-import java.util.List;
-
 @Getter
 @SuperBuilder
 @NoArgsConstructor
 @AllArgsConstructor
-public class StoreDetailResponseDto extends StoreResponseDto {
-    private List<MenuCategoryReponseDto> menuCategoryList;
-
-
+public class MenuResponseDto {
+    private Long id;
+    private String name;
+    private String description;
+    private String image;
+    private int basePrice;
 }

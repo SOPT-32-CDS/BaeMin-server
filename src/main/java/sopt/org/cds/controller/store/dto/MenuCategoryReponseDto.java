@@ -11,8 +11,8 @@ import java.util.List;
 @SuperBuilder
 @NoArgsConstructor
 @AllArgsConstructor
-public class StoreDetailResponseDto extends StoreResponseDto {
-    private List<MenuCategoryReponseDto> menuCategoryList;
-
-
+public class MenuCategoryReponseDto {
+    private Long id;
+    private String name;
+    private List<MenuResponseDto> menuList;
 }
