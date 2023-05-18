@@ -12,7 +12,10 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 public class MenuCategoryResponseDto {
+
     private Long id;
+
     private String name;
+    
     private List<MenuResponseDto> menuList;
 }

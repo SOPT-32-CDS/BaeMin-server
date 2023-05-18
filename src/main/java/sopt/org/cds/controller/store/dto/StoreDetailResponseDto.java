@@ -13,7 +13,7 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 public class StoreDetailResponseDto extends StoreResponseDto {
+
     private List<MenuCategoryResponseDto> menuCategoryList;
-
-
+    
 }

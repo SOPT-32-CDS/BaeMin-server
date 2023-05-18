@@ -10,9 +10,14 @@ import lombok.experimental.SuperBuilder;
 @NoArgsConstructor
 @AllArgsConstructor
 public class MenuResponseDto {
+
     private Long id;
+
     private String name;
+
     private String description;
+
     private String image;
+    
     private int basePrice;
 }
