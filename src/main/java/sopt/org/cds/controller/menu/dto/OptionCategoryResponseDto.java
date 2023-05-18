@@ -11,11 +11,13 @@ import java.util.List;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class MenuCategoryResponseDto {
-
+public class OptionCategoryResponseDto {
+    
     private Long id;
 
     private String name;
 
-    private List<MenuResponseDto> menus;
+    private String description;
+
+    private List<OptionResponseDto> options;
 }

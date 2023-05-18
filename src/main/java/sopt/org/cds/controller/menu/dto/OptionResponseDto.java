@@ -5,17 +5,15 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
-import java.util.List;
-
 @Getter
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class MenuCategoryResponseDto {
-
+public class OptionResponseDto {
+    
     private Long id;
 
     private String name;
 
-    private List<MenuResponseDto> menus;
+    private int price;
 }

@@ -1,21 +1,17 @@
 package sopt.org.cds.controller.menu.dto;
 
 import lombok.AllArgsConstructor;
-import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.experimental.SuperBuilder;
 
 import java.util.List;
 
 @Getter
-@Builder
+@SuperBuilder
 @NoArgsConstructor
 @AllArgsConstructor
-public class MenuCategoryResponseDto {
-
-    private Long id;
-
-    private String name;
-
-    private List<MenuResponseDto> menus;
+public class MenuDetailResponseDto extends MenuResponseDto {
+    
+    private List<OptionCategoryResponseDto> optionCategories;
 }
