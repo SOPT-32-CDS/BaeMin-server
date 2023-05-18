@@ -57,7 +57,7 @@ public class StoreService {
                         menuCategoryList.add(MenuCategoryResponseDto.builder()
                                 .id(menuCategory.getId())
                                 .name(menuCategory.getName())
-                                .menuList(getMenuResponseList(menuCategory.getMenuList()))
+                                .menus(getMenuResponseList(menuCategory.getMenuList()))
                                 .build());
                     });
 
