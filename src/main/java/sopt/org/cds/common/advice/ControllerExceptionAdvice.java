@@ -12,6 +12,7 @@ import sopt.org.cds.common.dto.ApiResponseDto;
 import sopt.org.cds.exception.ErrorStatus;
 import sopt.org.cds.exception.InvalidCartException;
 import sopt.org.cds.exception.InvalidCartItemException;
+import sopt.org.cds.exception.NotFoundStoreException;
 
 import static sopt.org.cds.common.dto.ApiResponseDto.error;
 
@@ -36,6 +37,13 @@ public class ControllerExceptionAdvice {
     @ExceptionHandler(InvalidCartItemException.class)
     protected ApiResponseDto handleInvalidCartItemException(final InvalidCartItemException e) {
         return error(ErrorStatus.VALIDATION_INVALID_CART_ITEM_EXCEPTION);
+    }
+
+    // Store 조회 실패
+    @ResponseStatus(HttpStatus.NOT_FOUND)
+    @ExceptionHandler(InvalidCartItemException.class)
+    protected ApiResponseDto handleNotFoundStoreException(final NotFoundStoreException e) {
+        return error(ErrorStatus.NOT_FOUND_STORE_EXCEPTION);
     }
 
 
