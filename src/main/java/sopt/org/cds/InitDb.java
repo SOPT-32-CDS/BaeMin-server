@@ -3,10 +3,7 @@ package sopt.org.cds;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
-import sopt.org.cds.domain.Cart;
-import sopt.org.cds.domain.CartItem;
-import sopt.org.cds.domain.CartStore;
-import sopt.org.cds.domain.Store;
+import sopt.org.cds.domain.*;
 
 import javax.annotation.PostConstruct;
 import javax.persistence.EntityManager;
@@ -42,6 +39,10 @@ public class InitDb {
             em.persist(cartItem);
             cart.changeTotalPrice(cartItem.getTotalPrice());
             cart.changeDeliveryFee(store.getDeliveryFee());
+
+            User user = User.createUser("송파구 올림픽로 135", cart);
+            em.persist(user);
+            
 
         }
     }
