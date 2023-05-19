@@ -38,23 +38,30 @@ public class ControllerExceptionAdvice {
 
     // Store 조회 실패
     @ResponseStatus(HttpStatus.NOT_FOUND)
-    @ExceptionHandler(InvalidCartItemException.class)
+    @ExceptionHandler(NotFoundStoreException.class)
     protected ApiResponseDto handleNotFoundStoreException(final NotFoundStoreException e) {
         return error(ErrorStatus.NOT_FOUND_STORE_EXCEPTION);
     }
 
     // Menu 조회 실패
     @ResponseStatus(HttpStatus.NOT_FOUND)
-    @ExceptionHandler(InvalidCartItemException.class)
+    @ExceptionHandler(NotFoundMenuException.class)
     protected ApiResponseDto handleNotFoundMenuException(final NotFoundMenuException e) {
         return error(ErrorStatus.NOT_FOUND_STORE_EXCEPTION);
     }
 
     // 유효하지 않은 토큰
     @ResponseStatus(HttpStatus.BAD_REQUEST)
-    @ExceptionHandler(InvalidCartItemException.class)
+    @ExceptionHandler(InvalidTokenException.class)
     protected ApiResponseDto handleNotFoundMenuException(final InvalidTokenException e) {
         return error(ErrorStatus.INVALID_TOKEN_EXCEPTION);
+    }
+
+    // 존재하지 않는 유저
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    @ExceptionHandler(NotFoundUserException.class)
+    protected ApiResponseDto handleNotFoundUserException(final NotFoundUserException e) {
+        return error(ErrorStatus.NOT_FOUND_USER_EXCEPTION);
     }
 
 
