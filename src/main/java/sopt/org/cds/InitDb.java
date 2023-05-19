@@ -32,6 +32,18 @@ public class InitDb {
             Store store = new Store("정담초밥", "dqweqwe-scqweq32wdsa", 4.7, 15000, 4400, 22, 38, false); //store만 다시 만듭시다 Nullable
             em.persist(store);
 
+            MenuCategory menuCategory = new MenuCategory("인기메뉴", store);
+            em.persist(menuCategory);
+
+            Menu menu = new Menu("[재주문 1위] 특초밥+미니우동", "흰살생선3p, 연어 2p, 참치1p, 황새치 1p, 초새우1p, 간장새우1p, 생새우1p, 소...", "https://i.ibb.co/ydXz7jN/menu.png", 16000, menuCategory);
+            em.persist(menu);
+
+            OptionCategory optionCategory = new OptionCategory("사이드 추가 선택", "최대 6개 선택", menu);
+            em.persist(optionCategory);
+
+            Option option = new Option("새우튀김 6p 추가", 7000, optionCategory);
+            em.persist(option);
+
             CartStore cartStore = CartStore.createCart(store, cart);
             em.persist(cartStore);
 
@@ -42,7 +54,7 @@ public class InitDb {
 
             User user = User.createUser("송파구 올림픽로 135", cart);
             em.persist(user);
-            
+
 
         }
     }
