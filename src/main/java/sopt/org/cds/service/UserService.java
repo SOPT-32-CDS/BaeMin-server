@@ -11,6 +11,7 @@ import org.springframework.util.Base64Utils;
 import org.springframework.web.client.HttpClientErrorException;
 import sopt.org.cds.controller.user.dto.UserResponseDto;
 import sopt.org.cds.domain.User;
+import sopt.org.cds.exception.InvalidTokenException;
 import sopt.org.cds.infrastructure.UserRepository;
 
 import javax.transaction.Transactional;
@@ -41,7 +42,7 @@ public class UserService {
                 throw new HttpClientErrorException(HttpStatus.UNAUTHORIZED, "등록되지 않은 유저입니다.");
             }
         } catch (ParseException e) {
-            throw new HttpClientErrorException(HttpStatus.BAD_REQUEST, "잘못된 형식의 토큰입니다.");
+            throw new InvalidTokenException();
         }
 
     }

@@ -50,6 +50,13 @@ public class ControllerExceptionAdvice {
         return error(ErrorStatus.NOT_FOUND_STORE_EXCEPTION);
     }
 
+    // 유효하지 않은 토큰
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    @ExceptionHandler(InvalidCartItemException.class)
+    protected ApiResponseDto handleNotFoundMenuException(final InvalidTokenException e) {
+        return error(ErrorStatus.INVALID_TOKEN_EXCEPTION);
+    }
+
 
     @ExceptionHandler(HttpServerErrorException.class)
     protected ApiResponseDto handleServerErrorException(final HttpServerErrorException e) {
