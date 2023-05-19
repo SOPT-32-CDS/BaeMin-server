@@ -9,10 +9,7 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.client.HttpServerErrorException;
 import sopt.org.cds.common.dto.ApiResponseDto;
-import sopt.org.cds.exception.ErrorStatus;
-import sopt.org.cds.exception.InvalidCartException;
-import sopt.org.cds.exception.InvalidCartItemException;
-import sopt.org.cds.exception.NotFoundStoreException;
+import sopt.org.cds.exception.*;
 
 import static sopt.org.cds.common.dto.ApiResponseDto.error;
 
@@ -43,6 +40,13 @@ public class ControllerExceptionAdvice {
     @ResponseStatus(HttpStatus.NOT_FOUND)
     @ExceptionHandler(InvalidCartItemException.class)
     protected ApiResponseDto handleNotFoundStoreException(final NotFoundStoreException e) {
+        return error(ErrorStatus.NOT_FOUND_STORE_EXCEPTION);
+    }
+
+    // Menu 조회 실패
+    @ResponseStatus(HttpStatus.NOT_FOUND)
+    @ExceptionHandler(InvalidCartItemException.class)
+    protected ApiResponseDto handleNotFoundMenuException(final NotFoundMenuException e) {
         return error(ErrorStatus.NOT_FOUND_STORE_EXCEPTION);
     }
 
