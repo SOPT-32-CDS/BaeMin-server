@@ -64,15 +64,17 @@ public class CartService {
     public CartItemResponseDto addCartItem(CartItemRequestDto requestDto) throws InvalidCartException {
         try {
             CartStore cartStore = cartStoreRepository.findOne(requestDto.getStoreId());
-            CartItem cartItem = createCartItem(requestDto, cartStore);
-            changeCartInfo(requestDto, cartItem);
-            return CartItemResponseDto.of(cartItem.getId(), cartItem.getName(), cartItem.getTotalPrice(), cartItem.getCount());
+            return getCartItemResponseDto(requestDto, cartStore);
         } catch (NullPointerException e) { //cartStore가 없는 경우 cartStore를 만들고 cartItem 생성
             CartStore cartStore = createCartStore(requestDto);
-            CartItem cartItem = createCartItem(requestDto, cartStore);
-            changeCartDeliveryFee(requestDto, cartItem); //cartStore가 추가되었을 때 장바구니 총 가격 + 배달팁 변경
-            return CartItemResponseDto.of(cartItem.getId(), cartItem.getName(), cartItem.getTotalPrice(), cartItem.getCount());
+            return getCartItemResponseDto(requestDto, cartStore);
         }
+    }
+
+    private CartItemResponseDto getCartItemResponseDto(CartItemRequestDto requestDto, CartStore cartStore) {
+        CartItem cartItem = createCartItem(requestDto, cartStore);
+        changeCartInfo(requestDto, cartItem);
+        return CartItemResponseDto.of(cartItem.getId(), cartItem.getName(), cartItem.getTotalPrice(), cartItem.getCount());
     }
 
     //장바구니에 띄워질 총 주문금액 계산 메서드
